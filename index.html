@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+  <title>INVOICE GENERATOR</title>
+  
+ <meta name="viewport" content="width=device-width, initial-scale=1"> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw==" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="css/index.css">
+
+</head>
+<body>
+
+  <div class="container flexstart">
+    <div class="left" id="name">
+      <div class="logo-invoice flex">
+        <div class="logo">
+          <input type="file" id="files" name="files[]" width="100px" />
+          <button id="file_button"> + ADD YOUR LOGO</button>
+        </div>
+        <div class="invoice column">
+          <input type="text" class="form-control border-none" value="INVOICE">
+            <div class="input-group"id="voice" >
+              <span class="input-group-text" >#</span>
+              <input type="number" step="0.125" min="0.1" max="0.875"class="form-control" id="in_voice">
+           </div>          
+        </div>
+      </div>
+      <div class="address-date flex">
+        <div class="address" >
+            <textarea name="" id="" cols="30" rows="2" placeholder="Who is this invoice from? (required)" class="form-control required" ></textarea>
+            <div class="bill-ship flex">
+              <div class="bill">
+                <input type="text" value="Bill To" class="form-control border-none">
+                 <textarea name="" id="" cols="30" rows="2" placeholder="Who is this invoice to? (required)" class="form-control required" ></textarea>          
+              </div>
+              <div class="bill">
+                <input type="text" value="Ship To" class="form-control border-none">
+                 <textarea name="" id="ship" cols="30" rows="2" placeholder="optional" class="form-control" ></textarea>          
+              </div>        
+              <div class="ship"></div>
+            </div>          
+        </div>
+      <div class="date">
+        <div class="date-box flex-div">
+          <input type="text" class="form-control border-none" value="Date">
+          <input type="date" class="form-control" id="date">         
+        </div>
+        <div class="date-box flex-div" id="date_due">
+          <input type="text" class="form-control border-none" value="Due Date">
+          <input type="date" class="form-control">         
+        </div>        
+      </div>
+      </div>
+        <table class="table table-borderless">
+          <thead class="thead-dark">
+            <!-- <tr > -->
+              <th style="width: 50%"><input type="text" value="Item" class="form-control"></th>
+              <th style="width: 15%"><input type="text" value="Quantity" class="form-control"></th>
+              <th style="width: 15%"><input type="text" value="Rate" class="form-control"></th>
+              <th style="width: 20%"><input type="text" value="Amount" class="form-control" style="text-align: right"></th>
+              <th style="background-color: white"><input type="text" value="Amount" class="form-control"></th>
+            <!-- </tr> -->
+          </thead>
+          <tbody id="table">
+
+            <tr class="tr" id="one">
+              <td><textarea placeholder="Description of service or product ..." class="form-control"></textarea></td>
+              <td><input type="number" value="1" step="any" autocomplete="off" class="form-control qty" id="qty"></td>
+              <td> 
+              <div class="input-group" id="input-group">
+                <span class="input-group-text currency"> <span class="sign">$</span></span>
+                <input type="number" step="any" autocomplete="off" class="form-control currency2" value="0" id="rate" >
+              </div> 
+              </td>
+              <td><p class="margin-top-currency-p" ><span class="sign">$</span> <span class="res">0.00</span></p></td>
+              <td></td>
+            </tr> 
+
+            <tr class="tr" id="one">
+              <td><textarea placeholder="Description of service or product ..." class="form-control"></textarea></td>
+              <td><input type="number" value="1" step="any" autocomplete="off" class="form-control qty" id="qty"></td>
+              <td> 
+              <div class="input-group" id="input-group">
+                <span class="input-group-text currency"> <span class="sign">$</span></span>
+                <input type="number" step="any" autocomplete="off" class="form-control currency2" value="0" id="rate">
+              </div> 
+              </td>
+              <td><p class="margin-top-currency-p" ><span class="sign">$</span> <span class="res">0.00</span></p></td>
+              <td><i class="fa fa-trash"></i> </td>
+            </tr> 
+
+          </tbody>
+        </table>
+      
+      <button class="btn bg-primary" id="add_item"> + LINE ITEM</button>
+
+      <div class="notes-total flexstart">
+        <div class="notes">
+                <input type="text" value="Notes" class="form-control border-none">
+                 <textarea name="" id="notes" cols="30" rows="2" placeholder="Notes - any relevant information not already covered" class="form-control" ></textarea>    
+
+                <input type="text" value="Terms" class="form-control border-none">
+                 <textarea name="" id="terms" cols="30" rows="2" placeholder="Terms and conditions - late fees, payment methods, delivery schedule" class="form-control" ></textarea> 
+
+        </div>
+
+        <div id="total"> 
+         <div class="date-box flex-div ">
+          <input type="text" class="form-control border-none" value="Subtotal">
+          <p style="background-color:  ; margin-top: 10px ; margin-right: 15px"> <span class="sign">$</span> <span id="subtotal"> 0.00 </span> </p>     
+        </div> 
+
+  
+         <div class="date-box flex tax" id="one">
+          <input type="text" class="form-control border-none"  value="Tax">
+          <div class="input-group">
+              <span class="input-group-text spanner">
+                  <select name="select" id="tax_percentage" value="percentage">
+                    <option value="percentage">Per % </option>
+                    <option value="flat"> Flat <span class="sign2">$</span></option>
+                  </select>
+              </span>
+              <input type="number" class="form-control" style="width: 70px; height: 35px ; border-right: none ; border-left: none" id="tax_input">
+              <span class="input-group-text trans-back" id="tax_per_curr"><span class="sign2">%</span></span>
+           </div> 
+           <i class="fa fa-trash"></i>
+         </div> 
+
+         <div class="date-box flex discount" id="one">
+          <input type="text" class="form-control border-none" value="Discount">
+          <div class="input-group">
+              <span class="input-group-text spanner">
+                  <select name="select" id="discount_percentage" value="percentage">
+                    <option value="percentage">Per % </option>
+                    <option value="flat"> Flat <span class="sign2">$</span></option>
+                  </select>
+              </span>
+              <input type="number" class="form-control" style="width: 70px; height: 35px ; border-right: none ; border-left: none" id="discount_input" >
+              <span class="input-group-text trans-back" id="discount_per_curr"><span class="sign2">%</span></span>
+           </div>   
+           <i class="fa fa-trash"></i>
+         </div>          
+
+         <div class="date-box flex shipping" id="one">
+          <input type="text" class="form-control border-none" value="Shipping">
+          <div class="input-group">
+              <input type="number" class="form-control" style="width: 70px; height: 35px ; border-right: none" id="shipping_input" >
+              <span class="input-group-text trans-back" id="tax_per_curr"><span class="sign">$</span></span>
+           </div>   
+           <i class="fa fa-trash"></i>
+         </div> 
+        
+        <div class="date-box flex-handles" id="handles">
+          <p id="add_tax">+ Add Tax</p>
+          <p id="add_discount">+ Add Discount</p>
+          <p id="add_shipping">+ Add Shipping</p>
+        </div>
+
+         <div class="date-box flex-div total">
+          <input type="text" class="form-control border-none" value="Total">
+          <p style="background-color:  ; margin-top: 10px "> <span class="sign">$</span> <span id="total_bal">0.00</span> </p>         
+        </div> 
+
+         <div class="date-box flexstart" id="del_amt">
+          <input type="text" class="form-control border-none" value="Amount Paid">
+          <input type="number" class="form-control spanner" id="amount_paid" style="border-right: none ">    
+              <span class="input-group-text trans-back"><span class="sign">$</span></span>
+           <i class="fa fa-trash" style="visibility: hidden"></i>
+
+        </div>
+
+         <div class="date-box flexstart" id="del_amt1">
+          <input type="text" class="form-control border-none" value="Balance Due">
+          <p style="background-color:  ; margin-top: 10px ; margin-right: 15px"> <span class="sign">$</span> <span id="balance_due"> 0.00 </span> </p>         
+        </div> 
+                        
+        </div>
+      </div>
+<!-- yhep -->
+      </div>
+
+  <div class="right" id="right">
+    <button class="btn " id="gen_pdf"> DOWNLOAD AS PDF</button> <br/><br/>
+    <button class="btn btn-primary" id="new_invoice"> INVOICE DOWNLOADED SUCCESSFULLY </button>
+    <p> Choose currency : <span id="currency_name"></span></p>
+                        <select class="form-control" name="currency" id="select_currency">
+                                                            <option value="AED" >AED</option>
+                                                            <option value="AFN" >AFN</option>
+                                                            <option value="ALL" >ALL</option>
+                                                            <option value="AMD" >AMD</option>
+                                                            <option value="ANG" >ANG</option>
+                                                            <option value="AOA" >AOA</option>
+                                                            <option value="ARS" >ARS</option>
+                                                            <option value="AUD" >AUD</option>
+                                                            <option value="AWG" >AWG</option>
+                                                            <option value="AZN" >AZN</option>
+                                                            <option value="BAM" >BAM</option>
+                                                            <option value="BBD" >BBD</option>
+                                                            <option value="BDT" >BDT</option>
+                                                            <option value="BGN" >BGN</option>
+                                                            <option value="BHD" >BHD</option>
+                                                            <option value="BIF" >BIF</option>
+                                                            <option value="BMD" >BMD</option>
+                                                            <option value="BND" >BND</option>
+                                                            <option value="BOB" >BOB</option>
+                                                            <option value="BRL" >BRL</option>
+                                                            <option value="BSD" >BSD</option>
+                                                            <option value="BTC" >BTC</option>
+                                                            <option value="BTN" >BTN</option>
+                                                            <option value="BWP" >BWP</option>
+                                                            <option value="BYN" >BYN</option>
+                                                            <option value="BYR" >BYR</option>
+                                                            <option value="BZD" >BZD</option>
+                                                            <option value="CAD" >CAD</option>
+                                                            <option value="CDF" >CDF</option>
+                                                            <option value="CHF" >CHF</option>
+                                                            <option value="CLP" >CLP</option>
+                                                            <option value="CNY" >CNY</option>
+                                                            <option value="COP" >COP</option>
+                                                            <option value="CRC" >CRC</option>
+                                                            <option value="CUC" >CUC</option>
+                                                            <option value="CUP" >CUP</option>
+                                                            <option value="CVE" >CVE</option>
+                                                            <option value="CZK" >CZK</option>
+                                                            <option value="DJF" >DJF</option>
+                                                            <option value="DKK" >DKK</option>
+                                                            <option value="DOP" >DOP</option>
+                                                            <option value="DZD" >DZD</option>
+                                                            <option value="EGP" >EGP</option>
+                                                            <option value="ERN" >ERN</option>
+                                                            <option value="ETB" >ETB</option>
+                                                            <option value="EUR" >EUR</option>
+                                                            <option value="FJD" >FJD</option>
+                                                            <option value="FKP" >FKP</option>
+                                                            <option value="GBP" >GBP</option>
+                                                            <option value="GEL" >GEL</option>
+                                                            <option value="GGP" >GGP</option>
+                                                            <option value="GHS" >GHS</option>
+                                                            <option value="GIP" >GIP</option>
+                                                            <option value="GMD" >GMD</option>
+                                                            <option value="GNF" >GNF</option>
+                                                            <option value="GTQ" >GTQ</option>
+                                                            <option value="GYD" >GYD</option>
+                                                            <option value="HKD" >HKD</option>
+                                                            <option value="HNL" >HNL</option>
+                                                            <option value="HRK" >HRK</option>
+                                                            <option value="HTG" >HTG</option>
+                                                            <option value="HUF" >HUF</option>
+                                                            <option value="IDR" >IDR</option>
+                                                            <option value="ILS" >ILS</option>
+                                                            <option value="IMP" >IMP</option>
+                                                            <option value="INR" >INR</option>
+                                                            <option value="IQD" >IQD</option>
+                                                            <option value="IRR" >IRR</option>
+                                                            <option value="ISK" >ISK</option>
+                                                            <option value="JEP" >JEP</option>
+                                                            <option value="JMD" >JMD</option>
+                                                            <option value="JOD" >JOD</option>
+                                                            <option value="JPY" >JPY</option>
+                                                            <option value="KES" >KES</option>
+                                                            <option value="KGS" >KGS</option>
+                                                            <option value="KHR" >KHR</option>
+                                                            <option value="KMF" >KMF</option>
+                                                            <option value="KPW" >KPW</option>
+                                                            <option value="KRW" >KRW</option>
+                                                            <option value="KWD" >KWD</option>
+                                                            <option value="KYD" >KYD</option>
+                                                            <option value="KZT" >KZT</option>
+                                                            <option value="LAK" >LAK</option>
+                                                            <option value="LBP" >LBP</option>
+                                                            <option value="LKR" >LKR</option>
+                                                            <option value="LRD" >LRD</option>
+                                                            <option value="LSL" >LSL</option>
+                                                            <option value="LTL" >LTL</option>
+                                                            <option value="LVL" >LVL</option>
+                                                            <option value="LYD" >LYD</option>
+                                                            <option value="MAD" >MAD</option>
+                                                            <option value="MDL" >MDL</option>
+                                                            <option value="MGA" >MGA</option>
+                                                            <option value="MKD" >MKD</option>
+                                                            <option value="MMK" >MMK</option>
+                                                            <option value="MNT" >MNT</option>
+                                                            <option value="MOP" >MOP</option>
+                                                            <option value="MRO" >MRO</option>
+                                                            <option value="MUR" >MUR</option>
+                                                            <option value="MVR" >MVR</option>
+                                                            <option value="MWK" >MWK</option>
+                                                            <option value="MXN" >MXN</option>
+                                                            <option value="MYR" >MYR</option>
+                                                            <option value="MZN" >MZN</option>
+                                                            <option value="NAD" >NAD</option>
+                                                            <option value="NGN" >NGN</option>
+                                                            <option value="NIO" >NIO</option>
+                                                            <option value="NOK" >NOK</option>
+                                                            <option value="NPR" >NPR</option>
+                                                            <option value="NZD" >NZD</option>
+                                                            <option value="OMR" >OMR</option>
+                                                            <option value="PAB" >PAB</option>
+                                                            <option value="PEN" >PEN</option>
+                                                            <option value="PGK" >PGK</option>
+                                                            <option value="PHP" >PHP</option>
+                                                            <option value="PKR" >PKR</option>
+                                                            <option value="PLN" >PLN</option>
+                                                            <option value="PYG" >PYG</option>
+                                                            <option value="QAR" >QAR</option>
+                                                            <option value="RON" >RON</option>
+                                                            <option value="RSD" >RSD</option>
+                                                            <option value="RUB" >RUB</option>
+                                                            <option value="RWF" >RWF</option>
+                                                            <option value="SAR" >SAR</option>
+                                                            <option value="SBD" >SBD</option>
+                                                            <option value="SCR" >SCR</option>
+                                                            <option value="SDG" >SDG</option>
+                                                            <option value="SEK" >SEK</option>
+                                                            <option value="SGD" >SGD</option>
+                                                            <option value="SHP" >SHP</option>
+                                                            <option value="SLL" >SLL</option>
+                                                            <option value="SOS" >SOS</option>
+                                                            <option value="SPL" >SPL</option>
+                                                            <option value="SRD" >SRD</option>
+                                                            <option value="STD" >STD</option>
+                                                            <option value="SVC" >SVC</option>
+                                                            <option value="SYP" >SYP</option>
+                                                            <option value="SZL" >SZL</option>
+                                                            <option value="THB" >THB</option>
+                                                            <option value="TJS" >TJS</option>
+                                                            <option value="TMT" >TMT</option>
+                                                            <option value="TND" >TND</option>
+                                                            <option value="TOP" >TOP</option>
+                                                            <option value="TRY" >TRY</option>
+                                                            <option value="TTD" >TTD</option>
+                                                            <option value="TVD" >TVD</option>
+                                                            <option value="TWD" >TWD</option>
+                                                            <option value="TZS" >TZS</option>
+                                                            <option value="UAH" >UAH</option>
+                                                            <option value="UGX" >UGX</option>
+                                                            <option value="USD" selected="selected">USD</option>
+                                                            <option value="UYU" >UYU</option>
+                                                            <option value="UZS" >UZS</option>
+                                                            <option value="VEF" >VEF</option>
+                                                            <option value="VND" >VND</option>
+                                                            <option value="VUV" >VUV</option>
+                                                            <option value="WST" >WST</option>
+                                                            <option value="XAF" >XAF</option>
+                                                            <option value="XCD" >XCD</option>
+                                                            <option value="XDR" >XDR</option>
+                                                            <option value="XOF" >XOF</option>
+                                                            <option value="XPF" >XPF</option>
+                                                            <option value="YER" >YER</option>
+                                                            <option value="ZAR" >ZAR</option>
+                                                    </select>
+  </div>
+
+
+  
+<script src="js/index.js"></script>
+  
+<script>  
+// trigger upload file
+const file = document.getElementById('file_button')
+const input = document.getElementById('files')
+file.addEventListener('click' , function() {
+   input.click();
+});
+
+$(document).ready(function() {
+  if (window.File && window.FileList && window.FileReader) {
+    $("#files").on("change", function(e) {
+      var files = e.target.files,
+        filesLength = files.length;
+      for (var i = 0; i < filesLength; i++) {
+
+      if(document.getElementById("files").value != ""){
+        file_button.style.display = 'none';
+      }
+        var f = files[i]
+        var fileReader = new FileReader();
+        fileReader.onload = (function(e) {
+          var file = e.target;
+          $("<span class=\"pip\">" +
+            "<img id=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+            "<br/><span id=\"remove\">Remove image</span>" +
+            "</span>").insertAfter("#files");
+          $("#remove").click(function(){
+            $(this).parent(".pip").remove();
+            file_button.style.display = 'block';
+          });
+            // imageThumb.addEventListener('mouseover', function(){
+            //   remove.style.visibility = 'visible'
+            // })
+
+            // imageThumb.addEventListener('mouseout', function(){
+            //   remove.style.visibility = 'hidden';
+            // })      
+
+            // remove.addEventListener('mouseover', function(){
+            //   remove.style.visibility = 'visible'
+            // })
+
+            // remove.addEventListener('mouseout', function(){
+            //   remove.style.visibility = 'hidden';
+            // })
+            
+          // Old code here
+          /*$("<img></img>", {
+            class: "imageThumb",
+            src: e.target.result,
+            title: file.name + " | Click to remove"
+          }).insertAfter("#files").click(function(){$(this).remove();});*/
+          
+        });
+        fileReader.readAsDataURL(f);
+      }
+    });
+  } else {
+    alert("Your browser doesn't support to File API")
+  }
+
+
+
+});
+
+
+</script>
+
+
+<script>
+
+  window.onload = function () {
+    document.getElementById("gen_pdf").addEventListener("click", function(){
+      const name = document.getElementById("name")
+      var opt = {
+          margin:       0,
+          filename:     'myfile.pdf',
+          image:        { type: 'jpeg', quality: 1 },
+          html2canvas:  { scale: 2 },
+          jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+      html2pdf().from(name).set(opt).save();
+    
+    lost()
+
+    setInterval(function(){
+      come_in()
+    },1)
+
+    })
+  }
+
+
+  function lost () {
+  let textarea = table.getElementsByTagName('textarea')
+  for(items of textarea){
+    items.style.border = "none"
+  }
+
+  let inputs = table.getElementsByTagName('input')
+  for(items of inputs){
+    items.style.border = "none"
+    
+  }
+
+  let around = table.getElementsByClassName('input-group-text')
+  for(items of around){
+    items.style.border = "none"
+  }
+
+  handles.style.display = 'none'
+
+  add_item.style.visibility = 'hidden'
+
+
+
+  if(notes.value == ""){
+    notes.style.visibility = 'hidden'
+    notes.previousElementSibling.style.visibility = 'hidden'
+  }  
+
+  if(terms.value == ""){
+    terms.style.visibility = 'hidden'
+    terms.previousElementSibling.style.visibility = 'hidden'
+  }  
+
+  if(ship.value == ""){
+    ship.style.visibility = 'hidden'
+    ship.previousElementSibling.style.visibility = 'hidden'
+  }  
+
+  if(files.value == ""){
+      file_button.style.visibility = 'hidden'  
+      let bod = document.querySelector(".address-date.flex")
+      bod.style.marginTop = "-80px"
+  } else {
+    remove.style.visibility = 'hidden'
+  }
+
+  if(amount_paid.value == ""){
+      del_amt.style.visibility = 'hidden'
+      del_amt1.style.visibility = 'hidden'
+  }  
+
+  if(in_voice.value == ""){
+      voice.style.visibility = 'hidden'
+  } 
+
+  if(date.value == ""){
+      date.removeAttribute("type", "date")
+      let today = new Date()
+
+      date.value = today.getFullYear() + "-" + (today.getMonth() + 1) +'-'+ today.getDate()
+      date_due.style.visibility = 'hidden'
+   }
+  } 
+
+
+function come_in () {
+  let textarea = table.getElementsByTagName('textarea')
+  for(items of textarea){
+    items.classList.add('border')
+  }
+
+  let inputs = table.getElementsByClassName('qty')
+
+  for (let a=0; a < inputs.length; a++){
+    inputs[a].style.border = "1px solid #dee2e6"
+  }
+
+  let around = table.getElementsByClassName('input-group-text')
+  for(items of around){
+    items.style.border = "" 
+  }
+
+  let input_round = document.querySelectorAll('.form-control.currency2')
+  for (items of input_round){
+    items.style.borderRight = "1px solid #dee2e6"
+    items.style.borderTop = "1px solid #dee2e6"
+    items.style.borderBottom = "1px solid #dee2e6"
+  }
+    handles.style.display = 'flex'
+    add_item.style.visibility = 'visible'
+
+    notes.style.visibility = 'visible'
+    notes.previousElementSibling.style.visibility = 'visible'
+
+    terms.style.visibility = 'visible'
+    terms.previousElementSibling.style.visibility = 'visible'
+
+    ship.style.visibility = 'visible'
+    ship.previousElementSibling.style.visibility = 'visible'
+
+      file_button.style.visibility = 'visible'  
+
+      del_amt.style.visibility = 'visible'
+      del_amt1.style.visibility = 'visible'
+
+      voice.style.visibility = 'visible'
+
+      date.setAttribute("type", "date")
+      let today = new Date()
+
+      date.value = today.getFullYear() + "-" + today.getMonth() +'-'+ today.getDate()
+      date_due.style.visibility = 'visible'
+
+  if(files.value !== ""){
+      // file_button.style.visibility = 'hidden'  
+    remove.style.visibility = 'visible'
+  } else {
+          let bod = document.querySelector(".address-date.flex")
+      bod.style.marginTop = "20px"
+  }      
+
+}
+  
+  let check = document.querySelectorAll('.form-control.required')
+  console.log(check.length)
+  for(let items of check){
+    let button = right.querySelector('button')
+    items.addEventListener('keyup' , function (event){
+      if(check[0].value == "" || check[1].value == ""){
+       button.style.background = '#ffc0cb'
+       button.style.cursor = 'not-allowed'
+       button.disabled=true
+      } else {
+       button.disabled=false 
+       button.style.cursor = 'pointer'
+       button.style.background = '#dc3545'
+      console.log('it should work')
+      }
+    })
+  }
+  check[0].addEventListener("blur", function(){
+    if(check[0].value == ""){
+      check[0].style.border = "1px solid #e32321" 
+    } else {
+      check[0].style.border = "1px solid #ced4da"       
+    }
+  })
+
+  check[1].addEventListener("blur", function(){
+    if(check[1].value == ""){
+      check[1].style.border = "1px solid #e32321" 
+    } else {
+      check[1].style.border = "1px solid #ced4da"             
+    }
+  })
+
+  // for (items of check){
+  //   items.addEventListener("blur" , function(){
+  //     if(items.value == ""){        
+  //       items.style.border = "1px solid #e32321"
+  //     }
+  //   })
+  // }
+
+  gen_pdf.addEventListener('click', function(){
+    console.log('it worked')
+  })
+
+      let button = right.querySelector('button')
+      button.disabled = "true"
+      button.style.cursor = 'not-allowed'
+
+</script>
+
+</body>
+</html>
