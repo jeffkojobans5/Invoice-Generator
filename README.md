@@ -8,4 +8,4 @@
  
  Visit it here : https://flamboyant-sinoussi-b9969a.netlify.app
  
- NB: I cloned https://invoice-generator.com/ and I did this on study purposes.
+<!--  NB: I cloned https://invoice-generator.com/ and I did this on study purposes. -->
