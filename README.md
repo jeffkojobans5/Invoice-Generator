@@ -7,7 +7,7 @@
  
  Technologies Used: HTML | CSS | Javascript | Bootstrap | html2pdf library
  
- Visit it here : https://flamboyant-sinoussi-b9969a.netlify.app
+ Visit it here : https://invoice-gen.netlify.app/
  
  ![github-img](https://user-images.githubusercontent.com/67514352/125472857-24ef9301-2333-4c46-9c12-cbad5fda9084.PNG)
 
