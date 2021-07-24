@@ -265,7 +265,7 @@ function defaultDate () {
 defaultDate()
 
 function downLoaded() {
-	let msg = `<center class=" main p-2"> <h1> Your Invoice is generated.. </h1> <p> Kindly look into your downloads folder </p> 
+	let msg = `<center class=" main p-2"> <h1> Your Invoice is being generated.. </h1> <p> Kindly look into your downloads folder </p> 
 			   	<button class="btn bg-danger text-white mb-2" onClick = refresh()> Generate New Invoice </button>
 			   </center>`
 	congrats.innerHTML = msg 
