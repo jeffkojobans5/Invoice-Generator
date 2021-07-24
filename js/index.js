@@ -255,7 +255,7 @@ add_item.style.visibility = 'visible' //shows add item button
 //gives default date to date value
 function defaultDate () {
 	let newDate = new Date()
-	let setDate = newDate.getDate() + "/" + newDate.getMonth() + "/" + newDate.getFullYear();
+	let setDate = newDate.getDate() + "/" + (+newDate.getMonth() + 1) + "/" + newDate.getFullYear();
 	if(date.value == "") {
 		date.value = setDate 
 	}
